@@ -24,7 +24,9 @@ const Search = () => {
   useEffect(() => {
     const search = async () => {
       //https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=programming
-      const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
+      //const requestUrl = "https://en.wikipedia.org/w/api.php";
+      const requestUrl = "http://localhost:3001";
+      const { data } = await axios.get(requestUrl, {
         params: {
           action: "query",
           list: "search",
