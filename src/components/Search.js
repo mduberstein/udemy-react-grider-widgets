@@ -37,7 +37,9 @@ const Search = () => {
       });
       setResults(data.query.search);
     };
-    search();
+    if(term) {
+      search();
+    }
   }, [term]);
 
   // Async ALT 2, IIFE, no performance benefit over ALT 1
