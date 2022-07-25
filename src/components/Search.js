@@ -14,36 +14,39 @@ const Search = () => {
   //   console.log('I RUN WITH EVERY RENDER AND AT INITIAL RENDER');
   // });
 
-  // useEffect(()=>{
-  //   console.log('I RUN AT INITIAL RENDER AND, WITH EVERY RENDER IF TERM CHANGES)');
-  // }, [term]);
+  useEffect(()=>{
+    console.log('I RUN AT INITIAL RENDER AND, WITH EVERY RENDER IF TERM CHANGES');
+    return () => {
+      console.log('CLEANUP');
+    };
+  }, [term]);
 
   // console.log(results);
 
   // Async ALT 1
-  useEffect(() => {
-    const search = async () => {
-      //https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=programming
-      const requestUrl = "https://en.wikipedia.org/w/api.php";
-      // const requestUrl = "http://localhost:3001"; //Clip 158 XSS Server Code example
-      const { data } = await axios.get(requestUrl, {
-        params: {
-          action: "query",
-          list: "search",
-          origin: "*",
-          format: "json",
-          srsearch: term,
-        },
-      });
-      setResults(data.query.search);
-    };
-    const timeoutId = setTimeout(() => {
-      if (term) {
-        search();
-      }
-    }, 500);
+  // useEffect(() => {
+  //   const search = async () => {
+  //     //https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=programming
+  //     const requestUrl = "https://en.wikipedia.org/w/api.php";
+  //     // const requestUrl = "http://localhost:3001"; //Clip 158 XSS Server Code example
+  //     const { data } = await axios.get(requestUrl, {
+  //       params: {
+  //         action: "query",
+  //         list: "search",
+  //         origin: "*",
+  //         format: "json",
+  //         srsearch: term,
+  //       },
+  //     });
+  //     setResults(data.query.search);
+  //   };
+  //   const timeoutId = setTimeout(() => {
+  //     if (term) {
+  //       search();
+  //     }
+  //   }, 500);
  
-  }, [term]);
+  // }, [term]);
 
   // Async ALT 2, IIFE, no performance benefit over ALT 1
   // useEffect(() => {
