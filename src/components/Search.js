@@ -18,7 +18,8 @@ const Search = () => {
   //   console.log('I RUN AT INITIAL RENDER AND, WITH EVERY RENDER IF TERM CHANGES)');
   // }, [term]);
 
-  console.log(results);
+  // console.log(results);
+
   // Async ALT 1
   useEffect(() => {
     const search = async () => {
@@ -51,16 +52,32 @@ const Search = () => {
   //       console.log(response.data);
   //     });
   // }, [term]);
-
+  const renderedResults = results.map((result) => {
+    return (
+      <div key={result.pageid} className="item" >
+        <div className="content">
+          <div className="header">
+            {result.title}
+          </div>
+          {result.snippet}
+        </div>
+      </div>
+    );
+  })
   return (
-    <div className="ui form">
-      <div className='field'>
-        <label>Enter Search Term</label>
-        <input
-          value={term}
-          onChange={e => setTerm(e.target.value)}
-          className="input"
-        />
+    <div>
+      <div className="ui form">
+        <div className='field'>
+          <label>Enter Search Term</label>
+          <input
+            value={term}
+            onChange={e => setTerm(e.target.value)}
+            className="input"
+          />
+        </div>
+      </div>
+      <div className="ui celled list">
+        {renderedResults}  
       </div>
     </div>
   );
