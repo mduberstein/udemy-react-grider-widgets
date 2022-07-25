@@ -37,9 +37,12 @@ const Search = () => {
       });
       setResults(data.query.search);
     };
-    if(term) {
-      search();
-    }
+    const timeoutId = setTimeout(() => {
+      if (term) {
+        search();
+      }
+    }, 500);
+ 
   }, [term]);
 
   // Async ALT 2, IIFE, no performance benefit over ALT 1
