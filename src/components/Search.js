@@ -24,8 +24,8 @@ const Search = () => {
   useEffect(() => {
     const search = async () => {
       //https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=programming
-      //const requestUrl = "https://en.wikipedia.org/w/api.php";
-      const requestUrl = "http://localhost:3001";
+      const requestUrl = "https://en.wikipedia.org/w/api.php";
+      // const requestUrl = "http://localhost:3001"; //Clip 158 XSS Server Code example
       const { data } = await axios.get(requestUrl, {
         params: {
           action: "query",
@@ -57,6 +57,14 @@ const Search = () => {
   const renderedResults = results.map((result) => {
     return (
       <div key={result.pageid} className="item">
+        <div className="right floated content">
+          <a
+            className="ui button"
+            href={`https://en.wikipedia.org?curid=${result.pageid}`}
+          >
+            Go
+          </a>
+        </div>
         <div className="content">
           <div className="header">{result.title}</div>
           <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
