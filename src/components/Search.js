@@ -40,15 +40,19 @@ const Search = () => {
       });
       setResults(data.query.search);
     };
-    const timeoutId = setTimeout(() => {
-      if (term) {
-        search();
-      }
-    }, 500);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    if(term &&  !results.length) { // first time render, search immediately
+      search();
+    } else {
+      const timeoutId = setTimeout(() => {
+        if (term) {
+          search();
+        }
+      }, 500);
+  
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
   }, [term]);
 
   // Async ALT 2, IIFE, no performance benefit over ALT 1
