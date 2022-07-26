@@ -3,7 +3,9 @@ import axios from "axios";
 
 const Search = () => {
   const [term, setTerm] = useState("programming");
+  const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [results, setResults] = useState([]);
+
   // console.log('I RUN WITH EVERY RENDER');
 
   // useEffect(()=>{
@@ -23,37 +25,66 @@ const Search = () => {
 
   // console.log(results);
 
-  // Async ALT 1
+  useEffect(() => {
+    const timerId = setTimeout(()=> {
+      setDebouncedTerm(term);
+    }, 1000);
+
+    return () => { //cleanup function
+      clearTimeout(timerId);
+    };
+  }, [term]);
+
   useEffect(() => {
     const search = async () => {
       //https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=programming
       const requestUrl = "https://en.wikipedia.org/w/api.php";
-      // const requestUrl = "http://localhost:3001"; //Clip 158 XSS Server Code example
       const { data } = await axios.get(requestUrl, {
         params: {
           action: "query",
           list: "search",
           origin: "*",
           format: "json",
-          srsearch: term,
+          srsearch: debouncedTerm,
         },
       });
       setResults(data.query.search);
-    };
-    if(term &&  !results.length) { // first time render, search immediately
-      search();
-    } else {
-      const timeoutId = setTimeout(() => {
-        if (term) {
-          search();
-        }
-      }, 500);
+    }; 
+
+    search();
+  }, [debouncedTerm]);
+
+  // Async ALT 1
+  // useEffect(() => {
+  //   const search = async () => {
+  //     //https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=programming
+  //     const requestUrl = "https://en.wikipedia.org/w/api.php";
+  //     // const requestUrl = "http://localhost:3001"; //Clip 158 XSS Server Code example
+  //     const { data } = await axios.get(requestUrl, {
+  //       params: {
+  //         action: "query",
+  //         list: "search",
+  //         origin: "*",
+  //         format: "json",
+  //         srsearch: term,
+  //       },
+  //     });
+  //     setResults(data.query.search);
+  //   };
+  //   if(term &&  !results.length) { // first time render, search immediately
+  //     search();
+  //   } else {
+  //     const timeoutId = setTimeout(() => {
+  //       if (term) {
+  //         search();
+  //       }
+  //     }, 500);
   
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
-  }, [term]);
+  //     return () => { // cleanup function
+  //       clearTimeout(timeoutId);
+  //     };
+  //   }
+  // }, [term, results.length]);
 
   // Async ALT 2, IIFE, no performance benefit over ALT 1
   // useEffect(() => {
