@@ -4,19 +4,23 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
   const [open, setOpen] = useState(false); // state of dropdown
   const myRef = useRef();
 
+  const onBodyClick = (event) => {
+    // console.log("In body click handler, open =", open);
+    console.log("Logging event.target: ", event.target);
+    if (myRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  };
+
   useEffect(() => {
-    document.body.addEventListener(
-      "click",
-      (event) => {
-        // console.log("In body click handler, open =", open);
-        console.log("Logging event.target: ", event.target);
-        if(myRef.current.contains(event.target)) {
-          return;
-        }
-        setOpen(false);
-      }
-      , { capture: true }
-    );
+    document.body.addEventListener("click", onBodyClick, { capture: true });
+
+    return () => {
+      document.body.removeEventListener("click", onBodyClick, {
+        capture: true,
+      });
+    };
   }, []);
 
   const renderedOptions = options.map((option) => {
@@ -37,10 +41,10 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
       </div>
     );
   });
-  
+
   console.log("Logging myRef: ", myRef.current);
   return (
-    <div ref={myRef} className="ui form"> 
+    <div ref={myRef} className="ui form">
       <div className="field">
         <label className="label">Select a Color</label>
         <div
