@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const Dropdown = ({ options, selected, onSelectedChange }) => {
   const [open, setOpen] = useState(false); // state of dropdown
+  const myRef = useRef();
+
   useEffect(() => {
     document.body.addEventListener(
       "click",
-      () => {
-        console.log("In body click handler, open =", open);
+      (event) => {
+        // console.log("In body click handler, open =", open);
+        console.log("Logging event.target: ", event.target);
+        if(myRef.current.contains(event.target)) {
+          return;
+        }
         setOpen(false);
       }
       , { capture: true }
@@ -23,7 +29,7 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
         key={option.value}
         className="item"
         onClick={() => {
-          console.log("In Item click handler, open =", open);
+          // console.log("In Item click handler, open =", open);
           onSelectedChange(option);
         }}
       >
@@ -31,14 +37,16 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
       </div>
     );
   });
+  
+  console.log("Logging myRef: ", myRef.current);
   return (
-    <div className="ui form">
+    <div ref={myRef} className="ui form"> 
       <div className="field">
         <label className="label">Select a Color</label>
         <div
           onClick={() => {
             setOpen(!open);
-            console.log("In Dropdown div click handler, open =", open);
+            // console.log("In Dropdown div click handler, open =", open);
           }}
           className={`ui selection dropdown ${open ? "visible active" : ""}`}
         >
