@@ -2,21 +2,23 @@ import React, { useState } from "react";
 import Accordion from "./components/Accordion";
 import Dropdown from "./components/Dropdown";
 import Search from "./components/Search";
+import Translate from "./components/Translate";
 
-const items = [
-  {
-    title: "What is React?",
-    content: "React is a front end framework",
-  },
-  {
-    title: "Why use React?",
-    content: "React is a favorit JS library among engineers",
-  },
-  {
-    title: "How do you use React?",
-    content: "You use React by creating components",
-  },
-];
+// Widget 1
+// const items = [
+//   {
+//     title: "What is React?",
+//     content: "React is a front end framework",
+//   },
+//   {
+//     title: "Why use React?",
+//     content: "React is a favorit JS library among engineers",
+//   },
+//   {
+//     title: "How do you use React?",
+//     content: "You use React by creating components",
+//   },
+// ];
 
 const options = [
   {
@@ -34,14 +36,19 @@ const options = [
 ];
 
 const App = () => {
-  const [selected, setSelected] = useState(options[0]);
-  const [showDropdown, setShowDropdown] = useState(true);
+  // Widget 3 BEGIN
+  // const [selected, setSelected] = useState(options[0]);
+  // const [showDropdown, setShowDropdown] = useState(true);
+  // Widget 3 STOP
 
   return (
     <div>
+      {/* Widget1 */}
       {/* <Accordion items={items} /> */}
+      {/* Widget 2 */}
       {/* <Search /> */}
-      <button onClick={() => setShowDropdown(!showDropdown)}>
+      {/* Widget 3 RESUME*/}
+      {/* <button onClick={() => setShowDropdown(!showDropdown)}>
         Toggle Dropdown
       </button>
 
@@ -51,7 +58,10 @@ const App = () => {
           onSelectedChange={setSelected}
           options={options}
         />
-      ) : null}
+      ) : null} */}
+      {/* Widget 3 END*/}
+      {/* Widget 4 */}
+      <Translate />
     </div>
   );
 };
