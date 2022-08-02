@@ -6,7 +6,7 @@ const Dropdown = ({ label, options, selected, onSelectedChange }) => {
 
   const onBodyClick = (event) => {
     // console.log("In body click handler, open =", open);
-    console.log("In Dropdown, Logging event.target: ", event.target);
+    // console.log("In Dropdown, Logging event.target: ", event.target);
     if (myRef.current.contains(event.target)) {
       return;
     }
@@ -42,7 +42,7 @@ const Dropdown = ({ label, options, selected, onSelectedChange }) => {
     );
   });
 
-  console.log("In Dropdown, Logging myRef: ", myRef.current);
+  // console.log("In Dropdown, Logging myRef: ", myRef.current);
   return (
     <div ref={myRef} className="ui form">
       <div className="field">
