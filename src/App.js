@@ -59,6 +59,13 @@ const showTranslate = () => {
   }
 }
 
+// Alternative 2, not very React style
+const showComponent = (route, component) => {
+  return window.location.pathname === route
+    ? component
+    : null;
+}
+
 const App = () => {
   // Widget 3 BEGIN
   // const [selected, setSelected] = useState(options[0]);
@@ -68,9 +75,17 @@ const App = () => {
   return (
     <div>
       {/* Widget1 */}
-      {showAccordion()}
+      {/* Alternative 1 */}
+      {/* {showAccordion()} */}
+      {/* Alternative 2 */}
+      {showComponent('/', <Accordion items={items} />)}
+
       {/* Widget 2 */}
-      {showList()}
+      {/* Alternative 1 */}
+      {/* {showList()} */}
+      {/* Alternative 2 */}
+      {showComponent('/list', <Search />)}
+
       {/* Widget 3 RESUME*/}
       {/* <button onClick={() => setShowDropdown(!showDropdown)}>
         Toggle Dropdown
@@ -86,7 +101,11 @@ const App = () => {
       {showDropdown()}
       {/* Widget 3 END*/}
       {/* Widget 4 */}
-      {showTranslate()}
+      {/* Alternative 1 */}
+      {/* {showTranslate()} */}
+      {/* Alternative 2 */}
+      {showComponent('/translate', <Translate />)}
+
     </div>
   );
 };
