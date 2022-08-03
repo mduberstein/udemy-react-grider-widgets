@@ -3,6 +3,7 @@ import Accordion from "./components/Accordion";
 import Dropdown from "./components/Dropdown";
 import Search from "./components/Search";
 import Translate from "./components/Translate";
+import Route from "./components/Route"
 
 // Widget 1
 const items = [
@@ -34,6 +35,7 @@ const options = [
     value: "blue",
   },
 ];
+
 
 const showAccordion = () => {
   if (window.location.pathname === "/") {
@@ -68,7 +70,7 @@ const showComponent = (route, component) => {
 
 const App = () => {
   // Widget 3 BEGIN
-  // const [selected, setSelected] = useState(options[0]);
+  const [selected, setSelected] = useState(options[0]);
   // const [showDropdown, setShowDropdown] = useState(true);
   // Widget 3 STOP
 
@@ -78,13 +80,13 @@ const App = () => {
       {/* Alternative 1 */}
       {/* {showAccordion()} */}
       {/* Alternative 2 */}
-      {showComponent('/', <Accordion items={items} />)}
+      {/* {showComponent('/', <Accordion items={items} />)} */}
 
       {/* Widget 2 */}
       {/* Alternative 1 */}
       {/* {showList()} */}
       {/* Alternative 2 */}
-      {showComponent('/list', <Search />)}
+      {/* {showComponent('/list', <Search />)} */}
 
       {/* Widget 3 RESUME*/}
       {/* <button onClick={() => setShowDropdown(!showDropdown)}>
@@ -98,13 +100,32 @@ const App = () => {
           options={options}
         />
       ) : null} */}
-      {showDropdown()}
+      {/* {showDropdown()} */}
       {/* Widget 3 END*/}
       {/* Widget 4 */}
       {/* Alternative 1 */}
       {/* {showTranslate()} */}
       {/* Alternative 2 */}
-      {showComponent('/translate', <Translate />)}
+      {/* {showComponent('/translate', <Translate />)} */}
+
+      {/* Alternative 3 */}
+      <Route path="/">
+        <Accordion items={items} />
+      </Route>
+      <Route path="/list">
+        <Search />
+      </Route>
+      <Route path="/dropdown">
+        <Dropdown 
+          label="Select a Color"
+          selected={selected}
+          onSelectedChange={setSelected}
+          options={options}
+        />
+      </Route>
+      <Route path="/translate">
+        <Translate />
+      </Route>
 
     </div>
   );
