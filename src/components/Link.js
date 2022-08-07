@@ -1,7 +1,11 @@
 import React from "react";
 
 const Link = ({className, href, children}) => {
-  const onClick = (event) => {
+  const onClick = (event) => {  
+    if(event.metaKey || event.ctrlKey) {
+      // allow normal browser behavior, i.e. open in the new tab with page refresh
+      return;    
+    }
     // prevent default browser behavior of full page reload
     event.preventDefault();
     window.history.pushState({}, '', href);
