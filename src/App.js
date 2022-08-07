@@ -4,6 +4,7 @@ import Dropdown from "./components/Dropdown";
 import Search from "./components/Search";
 import Translate from "./components/Translate";
 import Route from "./components/Route"
+import Header from "./components/Header";
 
 // Widget 1
 const items = [
@@ -109,6 +110,7 @@ const App = () => {
       {/* {showComponent('/translate', <Translate />)} */}
 
       {/* Alternative 3 */}
+      <Header />
       <Route path="/">
         <Accordion items={items} />
       </Route>
