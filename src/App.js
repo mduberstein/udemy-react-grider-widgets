@@ -14,7 +14,7 @@ const items = [
   },
   {
     title: "Why use React?",
-    content: "React is a favorit JS library among engineers",
+    content: "React is a favorite JS library among engineers",
   },
   {
     title: "How do you use React?",
